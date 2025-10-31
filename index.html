@@ -3,170 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Invitación Especial</title>
+<title>Invitación Especial - Primera Comunión</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;600&family=Open+Sans:wght@300;400&family=Orbitron:wght@400;700&family=Exo+2:wght@500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <style>
-/* Reset básico y base */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
   font-family:'Open Sans',sans-serif;
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-  color:#fff;
+  background:linear-gradient(180deg,#fffef8 0%,#f9f5ee 100%);
+  color:#4b3b2a;
   line-height:1.6;
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:20px;
-  overflow-x:hidden;
 }
 
-.container{max-width:900px;width:100%;position:relative;}
-
-/* ----------------------- */
-/* 🎂 INVITACIÓN CUMPLEAÑOS - ESTILO IRON MAN (Más elegante) */
-/* ----------------------- */
-.cumpleanos{
-  position:relative;
-  background: linear-gradient(145deg, #1a0a0a, #3a1c1c);
-  color:#fff;
-  text-align:center;
-  border-radius:20px;
-  overflow:hidden;
-  padding:60px 30px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.5);
-  border:1px solid rgba(255,68,68,0.3);
-  transition:all 0.8s ease-in-out;
-  animation:fadeIn 1.2s ease forwards;
-}
-
-/* Fondo con patrón sutil */
-.cumpleanos::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(255,0,0,0.1) 0%, transparent 20%),
-    radial-gradient(circle at 80% 70%, rgba(255,150,0,0.1) 0%, transparent 20%),
-    radial-gradient(circle at 40% 80%, rgba(255,200,0,0.1) 0%, transparent 20%);
-  z-index:0;
-  opacity:0.6;
-}
-
-@keyframes fadeIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
-
-/* Texto */
-.titulo-cumple{
-  font-family:'Orbitron',sans-serif;
-  font-size:3rem;
-  color:#FFD700;
-  text-shadow:0 0 10px rgba(255,215,0,0.5);
-  letter-spacing:4px;
-  animation:glow 2s infinite alternate;
-  z-index:1;
-  position:relative;
-  margin-bottom:20px;
-}
-@keyframes glow{0%{text-shadow:0 0 10px rgba(255,215,0,0.5);}100%{text-shadow:0 0 20px rgba(255,215,0,0.8), 0 0 30px rgba(255,100,0,0.6);}}
-
-.nombre-cumple{
-  font-family:'Exo 2',sans-serif;
-  font-size:2.5rem;
-  margin:25px 0 15px;
-  color:#ffcc00;
-  text-shadow:0 0 10px rgba(255,100,0,0.5);
-  position:relative;
-  z-index:1;
-  animation:slideIn 1s ease-out;
-}
-@keyframes slideIn{from{opacity:0;transform:translateX(-50px);}to{opacity:1;transform:translateX(0);}}
-
-.detalles-cumple{
-  background:rgba(40,20,20,0.7);
-  border:1px solid rgba(255,180,0,0.4);
+/* Contenedor principal */
+.container{
+  max-width:900px;
+  width:100%;
+  background:#fffdf6;
   border-radius:15px;
-  padding:25px;
-  margin:25px auto;
-  display:inline-block;
-  box-shadow:0 5px 15px rgba(0,0,0,0.3);
-  z-index:1;
-  position:relative;
-  text-align:left;
-  max-width:400px;
-  backdrop-filter:blur(5px);
-  animation:scaleIn 1s ease-out 0.5s forwards;
-  opacity:0;
-}
-@keyframes scaleIn{from{opacity:0;transform:scale(0.8);}to{opacity:1;transform:scale(1);}}
-.detalles-cumple p{margin:12px 0;font-size:1.1rem;font-weight:500;}
-
-.btn-revelar{
-  background:linear-gradient(135deg,#ff8800 0%,#ffcc00 100%);
-  color:#000;
-  border:none;
-  padding:15px 40px;
-  font-size:18px;
-  border-radius:50px;
-  cursor:pointer;
-  transition:all .4s;
-  font-weight:bold;
-  box-shadow:0 5px 15px rgba(255,200,0,0.5);
-  animation:float 5s ease-in-out infinite;
-  z-index:1;
-  position:relative;
-}
-.btn-revelar:hover{
-  background:linear-gradient(135deg,#ffcc00 0%,#ff8800 100%);
-  transform:translateY(-3px) scale(1.05);
-  box-shadow:0 8px 20px rgba(255,200,0,0.7);
-}
-@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-
-/* Iron Man */
-.ironman{
-  width:160px;
-  margin:20px 0;
-  filter:drop-shadow(0 0 15px rgba(255,100,0,0.7));
-  animation:float 4s ease-in-out infinite;
-}
-
-/* ----------------------- */
-/* ✝ INVITACIÓN PRIMERA COMUNIÓN (Más elegante y suave) */
-/* ----------------------- */
-.comunion{
-  display:none;
-  opacity:0;
-  position:relative;
-  background:linear-gradient(180deg,#fffef8 0%,#f9f5ee 100%);
-  color:#4b3b2a;
-  border-radius:15px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
   overflow:hidden;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
-  padding:0;
-  transition:opacity 0.8s ease-out;
+  position:relative;
 }
 
-.comunion::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background-image: 
-    radial-gradient(circle at 10% 20%, rgba(212,175,55,0.1) 0%, transparent 20%),
-    radial-gradient(circle at 90% 80%, rgba(212,175,55,0.1) 0%, transparent 20%);
-  z-index:0;
-  pointer-events:none;
-}
-
+/* Encabezado */
 .header{
   background:linear-gradient(135deg,#a58564 0%,#d4af37 100%);
   color:white;
   padding:40px 20px;
   text-align:center;
-  position:relative;
-  z-index:1;
   animation:slideDown 1s ease-out;
 }
 @keyframes slideDown{from{opacity:0;transform:translateY(-50px);}to{opacity:1;transform:translateY(0);}}
@@ -174,11 +47,11 @@ body{
 .cruz{font-size:70px;margin-bottom:10px;opacity:.9;text-shadow:1px 1px 3px rgba(0,0,0,0.3);}
 .titulo{font-family:'Cinzel',serif;font-size:30px;letter-spacing:3px;}
 .subtitulo{font-family:'Great Vibes',cursive;font-size:45px;margin-top:10px;font-weight:400;}
-.nombre{font-size:40px;font-weight:600;margin:15px 0;text-shadow:1px 1px 5px rgba(0,0,0,0.4);animation:nameGlow 2s infinite alternate;}
-@keyframes nameGlow{0%{opacity:.8;}100%{opacity:1;}}
+.nombre{font-size:40px;font-weight:600;margin:15px 0;text-shadow:1px 1px 5px rgba(0,0,0,0.4);}
 .fecha{font-size:22px;margin-top:15px;display:flex;align-items:center;justify-content:center;gap:10px;}
-.content{padding:40px;position:relative;z-index:1;}
 
+/* Contenido */
+.content{padding:40px;position:relative;z-index:1;}
 .eventos{display:flex;flex-wrap:wrap;gap:25px;margin:30px 0;}
 .evento{
   flex:1;
@@ -193,6 +66,7 @@ body{
 .evento:hover{transform:translateY(-5px);box-shadow:0 6px 18px rgba(0,0,0,0.15);}
 .evento h3{color:#8b6b4c;margin-bottom:15px;font-family:'Cinzel',serif;font-size:1.4rem;}
 
+/* Mapa */
 .mapa-container{margin:30px 0;border-radius:15px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
 #mapa{height:400px;width:100%;}
 .leyenda-mapa{background:#f8f6f0;padding:15px;display:flex;justify-content:center;gap:30px;flex-wrap:wrap;font-weight:500;}
@@ -200,12 +74,13 @@ body{
 .marcador-iglesia{background-color:#e74c3c;}
 .marcador-salon{background-color:#3498db;}
 
+/* Confirmación */
 .confirmacion{text-align:center;margin:30px 0;padding:30px;background:#f8f6f0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
 .btn-confirmar{
   background:#d4af37;color:white;border:none;padding:15px 35px;font-size:18px;border-radius:50px;
-  cursor:pointer;transition:all .3s;font-weight:bold;margin-top:15px;box-shadow:0 4px 10px rgba(212, 175, 55, 0.4);
+  cursor:pointer;transition:all .3s;font-weight:bold;margin-top:15px;box-shadow:0 4px 10px rgba(212,175,55,0.4);
 }
-.btn-confirmar:hover{background:#b8941f;transform:translateY(-3px);box-shadow:0 6px 15px rgba(212, 175, 55, 0.6);}
+.btn-confirmar:hover{background:#b8941f;transform:translateY(-3px);box-shadow:0 6px 15px rgba(212,175,55,0.6);}
 .mensaje-final{text-align:center;font-style:italic;margin:20px 0;color:#666;font-size:18px;}
 .footer{text-align:center;padding:20px;color:#888;font-size:14px;border-top:1px solid #eee;}
 
@@ -222,7 +97,7 @@ body{
 .music-on{animation:rotar 3s linear infinite;}
 @keyframes rotar{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
-/* Mensaje de interacción */
+/* Mensaje */
 .interaction-message {
   position: fixed;
   top: 20px;
@@ -236,11 +111,7 @@ body{
   font-size: 14px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   animation: fadeMessage 3s forwards;
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
-
 @keyframes fadeMessage {
   0% { opacity: 0; top: 10px; }
   20% { opacity: 1; top: 20px; }
@@ -250,8 +121,6 @@ body{
 
 /* Responsive */
 @media(max-width:768px){
-  .titulo-cumple{font-size:2.2rem;}
-  .nombre-cumple{font-size:1.8rem;}
   .titulo{font-size:24px;}
   .subtitulo{font-size:36px;}
   .nombre{font-size:30px;}
@@ -265,262 +134,116 @@ body{
 <div class="music-control" id="musicControl" title="Reproducir / Pausar música"><i class="fas fa-music"></i></div>
 
 <div class="container">
-
-  <div class="invitacion-card cumpleanos" id="cumpleanos">
-    <h1 class="titulo-cumple">¡INVITACIÓN ESPECIAL!</h1>
-    <div class="nombre-cumple">Carlos Manuel</div>
-    <img class="ironman" src="imagenes/cum.jpg" alt="Iron Man">
-    <div class="detalles-cumple">
-      <p>📅 <i class="fas fa-calendar-alt" style="color:#ff6600;"></i> <strong>Sábado, 22 de Noviembre de 2025</strong></p>
-      <p>⏰ <i class="fas fa-clock" style="color:#ff6600;"></i> <strong>3:00 PM</strong></p>
-      <p>📍 <i class="fas fa-map-marker-alt" style="color:#ff6600;"></i> <strong>Salón de Eventos "H.LUNA"</strong></p>
-      <p>🏠 <i class="fas fa-home" style="color:#ff6600;"></i> <strong>Calle 6 Sur No. 8917, Col. 16 de Septiembre Sur</strong></p>
-    </div>
-    <p style="font-size:18px;margin:20px 0;">¡Prepárate para una tarde de héroes y diversión!</p>
-    <button class="btn-revelar" id="btnRevelar"><i class="fas fa-gift"></i> Ver Sorpresa</button>
+  <div class="header">
+    <div class="cruz">†</div>
+    <h1 class="titulo">INVITACIÓN ESPECIAL</h1>
+    <h2 class="subtitulo">Primera Comunión</h2>
+    <div class="nombre">Daniela Emireth Mendoza Bravo</div>
+    <div class="fecha"><i class="fas fa-calendar-check"></i> Sábado, 22 de Noviembre de 2025</div>
   </div>
 
-  <div class="invitacion-card comunion" id="comunion">
-    <div class="header">
-      <div class="cruz">†</div>
-      <h1 class="titulo">INVITACIÓN ESPECIAL</h1>
-      <h2 class="subtitulo">Primera Comunión</h2>
-      <div class="nombre">Daniela Emireth Mendoza Bravo</div>
-      <div class="fecha"><span><i class="fas fa-calendar-check"></i></span><span>Sábado, 22 de Noviembre de 2025</span></div>
-    </div>
+  <div class="content">
+    <p style="text-align:center;font-size:18px;margin-bottom:20px;">
+      Jesús dijo: “Dejad a los niños venir a mí, y no se lo impidáis; porque de los tales es el reino de los cielos”
+      <br><strong>- Mateo 19:14</strong>
+    </p>
 
-    <div class="content">
-      <p style="text-align:center;font-size:18px;margin-bottom:20px;">
-        Jesús dijo: "Dejad a los niños venir a mí, y no se lo impidáis; porque de los tales es el reino de los cielos"<br><strong>- Mateo 19:14</strong>
-      </p>
-
-      <div class="eventos">
-        <div class="evento">
-          <h3><i class="fas fa-church"></i> Ceremonia Religiosa</h3>
-          <p><strong>Hora:</strong> 10:00 AM</p>
-          <p><strong>Lugar:</strong> Parroquia Santa María Madre de Dios</p>
-          <p><strong>Dirección:</strong> Carril de la Rosa Manzana y 50 Norte, Diez de Mayo 72270</p>
-          <p><strong>Código:</strong> Formal</p>
-        </div>
-        <div class="evento">
-          <h3><i class="fas fa-cocktail"></i> Recepción</h3>
-          <p><strong>Hora:</strong> 3:00 PM</p>
-          <p><strong>Lugar:</strong> Salón de Eventos "H.LUNA"</p>
-          <p><strong>Dirección:</strong> Calle 6 Sur No. 8917, Col. 16 de Septiembre Sur</p>
-          <p><strong>Código:</strong> Semi Formal</p>
-        </div>
+    <div class="eventos">
+      <div class="evento">
+        <h3><i class="fas fa-church"></i> Ceremonia Religiosa</h3>
+        <p><strong>Hora:</strong> 10:00 AM</p>
+        <p><strong>Lugar:</strong> Parroquia Santa María Madre de Dios</p>
+        <p><strong>Dirección:</strong> Carril de la Rosa Manzana y 50 Norte, Diez de Mayo 72270</p>
+        <p><strong>Código:</strong> Formal</p>
       </div>
 
-      <div class="mapa-container">
-        <div id="mapa"></div>
-        <div class="leyenda-mapa">
-          <div><div class="color-marcador marcador-iglesia"></div> Iglesia</div>
-          <div><div class="color-marcador marcador-salon"></div> Salón</div>
-        </div>
-      </div>
-
-      <div class="confirmacion">
-        <h3>Confirma tu asistencia</h3>
-        <p>Por favor, confirma antes del 20 de Noviembre</p>
-        <button class="btn-confirmar" onclick="confirmarAsistencia()"><i class="fab fa-whatsapp"></i> Confirmar por WhatsApp</button>
-      </div>
-
-      <div class="mensaje-final">
-        <p>Tu presencia será nuestro mejor regalo <i class="fas fa-heart" style="color:#d4af37;"></i></p>
-        <p>Con la bendición de Dios y nuestros padres</p>
+      <div class="evento">
+        <h3><i class="fas fa-cocktail"></i> Recepción</h3>
+        <p><strong>Hora:</strong> 3:00 PM</p>
+        <p><strong>Lugar:</strong> Salón de Eventos "H.LUNA"</p>
+        <p><strong>Dirección:</strong> Calle 6 Sur No. 8917, Col. 16 de Septiembre Sur</p>
+        <p><strong>Código:</strong> Semi Formal</p>
       </div>
     </div>
-    <div class="footer">Invitación Digital - Primera Comunión de Daniela</div>
+
+    <div class="mapa-container">
+      <div id="mapa"></div>
+      <div class="leyenda-mapa">
+        <div><div class="color-marcador marcador-iglesia"></div> Iglesia</div>
+        <div><div class="color-marcador marcador-salon"></div> Salón</div>
+      </div>
+    </div>
+
+    <div class="confirmacion">
+      <p>Tu presencia será nuestro mejor regalo ❤️</p>
+      <button class="btn-confirmar" onclick="confirmarAsistencia()">Confirmar Asistencia</button>
+    </div>
+
+    <div class="mensaje-final">
+      <p>Con la bendición de Dios y nuestros padres</p>
+    </div>
   </div>
+
+  <div class="footer">Invitación Digital - Primera Comunión de Daniela</div>
 </div>
 
-<!-- Cambia estas rutas según la ubicación de tus archivos -->
-<!-- En la sección de audio, cambia las rutas: -->
-<audio id="musicaCumpleanos" loop preload="auto">
-  <source src="./audio/cumpleaños1.mp3" type="audio/mp3">
-</audio>
 <audio id="musicaComunion" loop preload="auto">
-  <source src="./audio/comunion.mp3" type="audio/mp3">
+  <source src="audio/comunion.mp3" type="audio/mp3">
 </audio>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-const cumpleanosCard = document.getElementById('cumpleanos');
-const comunionCard = document.getElementById('comunion');
-const btnRevelar = document.getElementById('btnRevelar');
 const musicControl = document.getElementById('musicControl');
-const musicaCumple = document.getElementById('musicaCumpleanos');
-const musicaComunion = document.getElementById('musicaComunion');
-let musicaActual = musicaCumple;
-let musicaActiva = false; // Inicialmente desactivada
-let mapaCargado = false;
+const musica = document.getElementById('musicaComunion');
+let musicaActiva = false;
 let usuarioInteractuo = false;
 
-// Mostrar mensaje de interacción
+// Mostrar mensaje
 function mostrarMensajeInteraccion() {
   const mensaje = document.createElement('div');
   mensaje.className = 'interaction-message';
-  mensaje.innerHTML = '<i class="fas fa-volume-up"></i> Haz clic en cualquier parte para activar la música';
+  mensaje.innerHTML = '<i class="fas fa-volume-up"></i> Toca para activar la música';
   document.body.appendChild(mensaje);
-  
-  setTimeout(() => {
-    if (mensaje.parentNode) {
-      mensaje.parentNode.removeChild(mensaje);
-    }
-  }, 3000);
+  setTimeout(() => mensaje.remove(), 3000);
 }
 
-// Reproducir música después de la interacción del usuario
 function iniciarMusica() {
-  if (!usuarioInteractuo) {
-    usuarioInteractuo = true;
-    musicaActiva = true;
-    musicaActual.play().then(() => {
-      console.log("Música iniciada correctamente");
+  if (!usuarioInteractuo) usuarioInteractuo = true;
+  if (!musicaActiva) {
+    musica.play().then(()=>{
+      musicaActiva = true;
       musicControl.classList.add('music-on');
-    }).catch(error => {
-      console.log("Error al reproducir música:", error);
-      musicaActiva = false;
-    });
+    }).catch(()=>{});
   }
 }
-
-// Control música
-musicControl.addEventListener('click', () => {
-  // Asegurar que el usuario ha interactuado
-  if (!usuarioInteractuo) {
-    usuarioInteractuo = true;
-  }
-  
+musicControl.addEventListener('click', ()=>{
   musicaActiva = !musicaActiva;
   const icon = musicControl.querySelector('i');
-  
-  if (musicaActiva) {
-    musicaActual.play().catch(error => {
-      console.log("Error al reproducir música:", error);
-      musicaActiva = false;
-    });
-    musicControl.classList.add('music-on');
-    icon.className = 'fas fa-music';
-  } else {
-    musicaActual.pause();
-    musicControl.classList.remove('music-on');
-    icon.className = 'fas fa-volume-mute';
-  }
+  if(musicaActiva){ musica.play(); musicControl.classList.add('music-on'); icon.className='fas fa-music'; }
+  else{ musica.pause(); musicControl.classList.remove('music-on'); icon.className='fas fa-volume-mute'; }
 });
+document.addEventListener('click', iniciarMusica, {once:true});
+document.addEventListener('touchstart', iniciarMusica, {once:true});
+window.addEventListener('load', ()=>setTimeout(mostrarMensajeInteraccion,1000));
 
-// Revelar Comunión
-btnRevelar.addEventListener('click', () => {
-  // Asegurar que el usuario ha interactuado
-  if (!usuarioInteractuo) {
-    usuarioInteractuo = true;
-  }
-  
-  // Transición elegante para el cumpleaños
-  cumpleanosCard.style.transform = 'translateY(-50px) scale(0.8)';
-  cumpleanosCard.style.opacity = '0';
-  
-  setTimeout(() => {
-    cumpleanosCard.style.display = 'none';
-    comunionCard.style.display = 'block';
-    // Muestra la comunión con un pequeño retraso
-    setTimeout(() => {
-      comunionCard.style.opacity = '1';
-    }, 100); 
-
-    cambiarMusica();
-
-    // Carga el mapa solo una vez
-    if (!mapaCargado) {
-      initMap();
-      mapaCargado = true;
-    }
-  }, 800); // Espera un poco más para la transición
-});
-
-function cambiarMusica() {
-  musicaCumple.pause();
-  musicaCumple.currentTime = 0; // Reinicia la música de cumpleaños
-  musicaActual = musicaComunion;
-  
-  if (musicaActiva) {
-    musicaActual.play().catch(error => {
-      console.log("Error al cambiar música:", error);
-    });
-  }
+function initMap(){
+  const iglesia=[19.055543586030872,-98.16731613383149];
+  const salon=[18.99436672013305,-98.2184132477168];
+  const map=L.map('mapa').setView([(iglesia[0]+salon[0])/2,(iglesia[1]+salon[1])/2],12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
+  const iconIglesia=L.divIcon({html:'<i class="fas fa-church fa-2x" style="color:#e74c3c;"></i>',iconSize:[30,42],iconAnchor:[15,42]});
+  const iconSalon=L.divIcon({html:'<i class="fas fa-cocktail fa-2x" style="color:#3498db;"></i>',iconSize:[30,42],iconAnchor:[15,42]});
+  const m1=L.marker(iglesia,{icon:iconIglesia}).addTo(map).bindPopup('⛪ Ceremonia Religiosa');
+  const m2=L.marker(salon,{icon:iconSalon}).addTo(map).bindPopup('🎉 Recepción');
+  map.fitBounds(L.featureGroup([m1,m2]).getBounds().pad(0.2));
 }
+initMap();
 
-function initMap() {
-  const iglesia = [19.055543586030872, -98.16731613383149];
-  const salon = [18.99436672013305, -98.2184132477168];
-  
-  // Asegura que el mapa se inicialice correctamente
-  if (document.getElementById('mapa')) {
-    const map = L.map('mapa').setView([(iglesia[0] + salon[0]) / 2, (iglesia[1] + salon[1]) / 2], 12);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '© OpenStreetMap'}).addTo(map);
-
-    // Marcador de Iglesia (rojo)
-    const iconIglesia = L.divIcon({
-      className: 'custom-div-icon', 
-      html: '<i class="fas fa-church fa-2x" style="color:#e74c3c;"></i>', 
-      iconSize: [30, 42], 
-      iconAnchor: [15, 42]
-    });
-    const m1 = L.marker(iglesia, {icon: iconIglesia}).addTo(map).bindPopup('⛪ Ceremonia Religiosa');
-    
-    // Marcador de Salón (azul)
-    const iconSalon = L.divIcon({
-      className: 'custom-div-icon', 
-      html: '<i class="fas fa-cocktail fa-2x" style="color:#3498db;"></i>', 
-      iconSize: [30, 42], 
-      iconAnchor: [15, 42]
-    });
-    const m2 = L.marker(salon, {icon: iconSalon}).addTo(map).bindPopup('🎉 Recepción');
-    
-    map.fitBounds(L.featureGroup([m1, m2]).getBounds().pad(0.2));
-  }
+function confirmarAsistencia(){
+  const tel="2227944150";
+  const msg="¡Hola! Confirmo mi asistencia a la Primera Comunión de Daniela. Gracias por la invitación.";
+  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`,'_blank');
 }
-
-function confirmarAsistencia() {
-  const tel = "2227944150";
-  const msg = "¡Hola! Confirmo mi asistencia a la Primera Comunión de Daniela. Gracias por la invitación.";
-  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-// Eventos para detectar interacción del usuario
-document.addEventListener('click', iniciarMusica, { once: true });
-document.addEventListener('touchstart', iniciarMusica, { once: true });
-document.addEventListener('keydown', iniciarMusica, { once: true });
-
-// Mostrar mensaje de interacción al cargar la página
-window.addEventListener('load', () => {
-  setTimeout(mostrarMensajeInteraccion, 1000);
-});
-
-// Verificar si los archivos de audio están disponibles
-window.addEventListener('load', () => {
-  // Verificar archivo de cumpleaños
-  fetch('audio/cumpleaños.mp3')
-    .then(response => {
-      if (!response.ok) {
-        console.warn('El archivo audio/cumpleaños.mp3 no se encuentra o no es accesible');
-      }
-    })
-    .catch(error => {
-      console.warn('Error al verificar audio/cumpleaños.mp3:', error);
-    });
-  
-  // Verificar archivo de comunión
-  fetch('audio/comunion.mp3')
-    .then(response => {
-      if (!response.ok) {
-        console.warn('El archivo audio/comunion.mp3 no se encuentra o no es accesible');
-      }
-    })
-    .catch(error => {
-      console.warn('Error al verificar audio/comunion.mp3:', error);
-    });
-});
 </script>
 </body>
 </html>
