@@ -70,6 +70,58 @@ body{
 .marcador-iglesia{background-color:#e74c3c;}
 .marcador-salon{background-color:#3498db;}
 
+/* Estilos personalizados para los iconos del mapa */
+.custom-marker-icon {
+  background: none !important;
+  border: none !important;
+}
+
+.marker-iglesia {
+  text-shadow: 0 0 8px rgba(231, 76, 60, 0.8), 0 0 12px white;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  animation: pulse 2s infinite;
+}
+
+.marker-salon {
+  text-shadow: 0 0 8px rgba(52, 152, 219, 0.8), 0 0 12px white;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  animation: pulse 2s infinite;
+}
+
+/* Efecto de pulso para los marcadores */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Marcadores personalizados con círculos de fondo */
+.marker-with-circle {
+  position: relative;
+  display: inline-block;
+}
+
+.marker-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.circle-iglesia {
+  background: rgba(231, 76, 60, 0.2);
+  border: 2px solid #e74c3c;
+}
+
+.circle-salon {
+  background: rgba(52, 152, 219, 0.2);
+  border: 2px solid #3498db;
+}
+
 /* Sección de confirmación elegante */
 .confirmacion-elegante {
   text-align: center;
@@ -256,8 +308,6 @@ body{
         <i class="fas fa-heart" style="color: #d4af37; margin-left: 8px;"></i>
       </p>
     </div>
-
-    
   </div>
 
   <div class="footer">Invitación Digital - Primera Comunión de Daniela</div>
@@ -316,13 +366,77 @@ function initMap(){
   const salon=[18.99436672013305,-98.2184132477168];
   const map=L.map('mapa').setView([(iglesia[0]+salon[0])/2,(iglesia[1]+salon[1])/2],12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
-  const iconIglesia=L.divIcon({html:'<i class="fas fa-church fa-2x" style="color:#e74c3c;"></i>',iconSize:[30,42],iconAnchor:[15,42]});
-  const iconSalon=L.divIcon({html:'<i class="fas fa-cocktail fa-2x" style="color:#3498db;"></i>',iconSize:[30,42],iconAnchor:[15,42]});
-  const m1=L.marker(iglesia,{icon:iconIglesia}).addTo(map).bindPopup('⛪ Ceremonia Religiosa');
-  const m2=L.marker(salon,{icon:iconSalon}).addTo(map).bindPopup('🎉 Recepción');
-  map.fitBounds(L.featureGroup([m1,m2]).getBounds().pad(0.2));
+  
+  // Iconos personalizados para la iglesia
+  const iconIglesia = L.divIcon({
+    className: 'custom-marker-icon marker-iglesia',
+    html: `
+      <div class="marker-with-circle">
+        <div class="marker-circle circle-iglesia"></div>
+        <i class="fas fa-church fa-2x" style="color:#e74c3c;"></i>
+      </div>
+    `,
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
+    popupAnchor: [0, -20]
+  });
+  
+  // Iconos personalizados para el salón
+  const iconSalon = L.divIcon({
+    className: 'custom-marker-icon marker-salon',
+    html: `
+      <div class="marker-with-circle">
+        <div class="marker-circle circle-salon"></div>
+        <i class="fas fa-glass-cheers fa-2x" style="color:#3498db;"></i>
+      </div>
+    `,
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
+    popupAnchor: [0, -20]
+  });
+  
+  // Marcador de la iglesia
+  const marcadorIglesia = L.marker(iglesia, {icon: iconIglesia}).addTo(map)
+    .bindPopup(`
+      <div style="text-align:center;padding:10px;min-width:200px;">
+        <h3 style="margin:0 0 10px 0;color:#e74c3c;">
+          <i class="fas fa-church"></i> Ceremonia Religiosa
+        </h3>
+        <p style="margin:5px 0;"><strong>⏰ Hora:</strong> 10:00 AM</p>
+        <p style="margin:5px 0;"><strong>📍 Lugar:</strong> Parroquia Santa María Madre de Dios</p>
+        <p style="margin:5px 0;font-size:12px;color:#666;">
+          Carril de la Rosa Manzana y 50 Norte, Diez de Mayo
+        </p>
+      </div>
+    `)
+    .openPopup();
+  
+  // Marcador del salón
+  const marcadorSalon = L.marker(salon, {icon: iconSalon}).addTo(map)
+    .bindPopup(`
+      <div style="text-align:center;padding:10px;min-width:200px;">
+        <h3 style="margin:0 0 10px 0;color:#3498db;">
+          <i class="fas fa-glass-cheers"></i> Recepción
+        </h3>
+        <p style="margin:5px 0;"><strong>⏰ Hora:</strong> 3:00 PM</p>
+        <p style="margin:5px 0;"><strong>📍 Lugar:</strong> Salón de Eventos "H.LUNA"</p>
+        <p style="margin:5px 0;font-size:12px;color:#666;">
+          Calle 6 Sur No. 8917, Col. 16 de Septiembre Sur
+        </p>
+      </div>
+    `);
+  
+  // Ajustar el mapa para mostrar ambos marcadores
+  const group = new L.featureGroup([marcadorIglesia, marcadorSalon]);
+  map.fitBounds(group.getBounds().pad(0.1));
+  
+  console.log('Mapa inicializado correctamente');
+  console.log('Iglesia:', iglesia);
+  console.log('Salón:', salon);
 }
-initMap();
+
+// Inicializar el mapa cuando la página cargue
+window.addEventListener('load', initMap);
 </script>
 </body>
 </html>
