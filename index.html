@@ -3,41 +3,63 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Invitación Especial - Primera Comunión</title>
+<title>Primera Comunión de Daniela</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
 <style>
+/* Reset básico y base */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
   font-family:'Open Sans',sans-serif;
-  background:linear-gradient(180deg,#fffef8 0%,#f9f5ee 100%);
-  color:#4b3b2a;
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  color:#fff;
   line-height:1.6;
   min-height:100vh;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:20px;
+  overflow-x:hidden;
 }
 
-.container{
-  max-width:900px;
-  width:100%;
-  background:#fffdf6;
-  border-radius:15px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.15);
-  overflow:hidden;
+.container{max-width:900px;width:100%;position:relative;}
+
+/* ----------------------- */
+/* ✝ INVITACIÓN PRIMERA COMUNIÓN (Más elegante y suave) */
+/* ----------------------- */
+.comunion{
   position:relative;
+  background:linear-gradient(180deg,#fffef8 0%,#f9f5ee 100%);
+  color:#4b3b2a;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  padding:0;
+  animation:fadeIn 1.2s ease forwards;
 }
+
+.comunion::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(212,175,55,0.1) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(212,175,55,0.1) 0%, transparent 20%);
+  z-index:0;
+  pointer-events:none;
+}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
 
 .header{
   background:linear-gradient(135deg,#a58564 0%,#d4af37 100%);
   color:white;
   padding:40px 20px;
   text-align:center;
+  position:relative;
+  z-index:1;
   animation:slideDown 1s ease-out;
 }
 @keyframes slideDown{from{opacity:0;transform:translateY(-50px);}to{opacity:1;transform:translateY(0);}}
@@ -45,10 +67,11 @@ body{
 .cruz{font-size:70px;margin-bottom:10px;opacity:.9;text-shadow:1px 1px 3px rgba(0,0,0,0.3);}
 .titulo{font-family:'Cinzel',serif;font-size:30px;letter-spacing:3px;}
 .subtitulo{font-family:'Great Vibes',cursive;font-size:45px;margin-top:10px;font-weight:400;}
-.nombre{font-size:40px;font-weight:600;margin:15px 0;text-shadow:1px 1px 5px rgba(0,0,0,0.4);}
+.nombre{font-size:40px;font-weight:600;margin:15px 0;text-shadow:1px 1px 5px rgba(0,0,0,0.4);animation:nameGlow 2s infinite alternate;}
+@keyframes nameGlow{0%{opacity:.8;}100%{opacity:1;}}
 .fecha{font-size:22px;margin-top:15px;display:flex;align-items:center;justify-content:center;gap:10px;}
-
 .content{padding:40px;position:relative;z-index:1;}
+
 .eventos{display:flex;flex-wrap:wrap;gap:25px;margin:30px 0;}
 .evento{
   flex:1;
@@ -70,127 +93,19 @@ body{
 .marcador-iglesia{background-color:#e74c3c;}
 .marcador-salon{background-color:#3498db;}
 
-/* Estilos personalizados para los iconos del mapa */
-.custom-marker-icon {
-  background: none !important;
-  border: none !important;
-}
-
-.marker-iglesia {
-  text-shadow: 0 0 8px rgba(231, 76, 60, 0.8), 0 0 12px white;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  animation: pulse 2s infinite;
-}
-
-.marker-salon {
-  text-shadow: 0 0 8px rgba(52, 152, 219, 0.8), 0 0 12px white;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-  animation: pulse 2s infinite;
-}
-
-/* Efecto de pulso para los marcadores */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-/* Marcadores personalizados con círculos de fondo */
-.marker-with-circle {
-  position: relative;
-  display: inline-block;
-}
-
-.marker-circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  z-index: -1;
-}
-
-.circle-iglesia {
-  background: rgba(231, 76, 60, 0.2);
-  border: 2px solid #e74c3c;
-}
-
-.circle-salon {
-  background: rgba(52, 152, 219, 0.2);
-  border: 2px solid #3498db;
-}
-
-/* Sección de confirmación elegante */
-.confirmacion-elegante {
-  text-align: center;
-  margin: 40px 0;
-  padding: 35px;
-  background: linear-gradient(135deg, #f8f6f0 0%, #f0e8d8 100%);
-  border-radius: 15px;
-  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.2);
-  border: 2px solid #d4af37;
-  position: relative;
-  overflow: hidden;
-}
-
-.confirmacion-elegante::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #d4af37, #a58564, #d4af37);
-  animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-  0% { background-position: -200px 0; }
-  100% { background-position: 200px 0; }
-}
-
-.confirmacion-elegante h3 {
+.confirmacion{text-align:center;margin:30px 0;padding:30px;background:#f8f6f0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.mensaje-asistencia {
+  font-size: 22px;
   color: #8b6b4c;
-  font-family: 'Cinzel', serif;
-  font-size: 1.8rem;
-  margin-bottom: 15px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+  font-family: 'Great Vibes', cursive;
+  margin: 20px 0;
+  text-align: center;
+  animation: fadeIn 2s ease;
 }
-
-.confirmacion-elegante p {
-  color: #6b4e33;
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin: 10px 0;
-}
-
-.emoji-decoracion {
-  font-size: 2rem;
-  margin: 0 10px;
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-5px); }
-}
-
-.mensaje-final{
-  text-align:center;
-  margin:40px 0 20px;
-  padding:25px;
-  background:#f8f6f0;
-  border-radius:12px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.05);
-  font-size:18px;
-  color:#6b4e33;
-  font-style:italic;
-}
-
+.mensaje-final{text-align:center;font-style:italic;margin:20px 0;color:#666;font-size:18px;}
 .footer{text-align:center;padding:20px;color:#888;font-size:14px;border-top:1px solid #eee;}
 
+/* Control de música */
 .music-control{
   position:fixed;top:20px;right:20px;z-index:1000;
   background:linear-gradient(135deg,#b38b59 0%,#d4af37 100%);
@@ -203,240 +118,174 @@ body{
 .music-on{animation:rotar 3s linear infinite;}
 @keyframes rotar{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
-/* Mensaje flotante */
-.interaction-message {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.8);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 50px;
-  z-index: 1001;
-  font-size: 14px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-  animation: fadeMessage 3s forwards;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-@keyframes fadeMessage {
-  0% { opacity: 0; top: 10px; }
-  20% { opacity: 1; top: 20px; }
-  80% { opacity: 1; top: 20px; }
-  100% { opacity: 0; top: 30px; }
-}
-
+/* Responsive */
 @media(max-width:768px){
   .titulo{font-size:24px;}
   .subtitulo{font-size:36px;}
   .nombre{font-size:30px;}
   .content{padding:20px;}
   #mapa{height:300px;}
-  .confirmacion-elegante {
-    padding: 25px 20px;
-    margin: 30px 0;
-  }
-  .confirmacion-elegante h3 {
-    font-size: 1.5rem;
-  }
-  .confirmacion-elegante p {
-    font-size: 1.1rem;
-  }
+  .mensaje-asistencia {font-size: 20px;}
 }
 </style>
 </head>
 <body>
 
-<div class="music-control" id="musicControl" title="Reproducir / Pausar música">
-  <i class="fas fa-music"></i>
-</div>
+<div class="music-control" id="musicControl" title="Reproducir / Pausar música"><i class="fas fa-music"></i></div>
 
 <div class="container">
-  <div class="header">
-    <div class="cruz">†</div>
-    <h1 class="titulo">INVITACIÓN ESPECIAL</h1>
-    <h2 class="subtitulo">Primera Comunión</h2>
-    <div class="nombre">Daniela Emireth Mendoza Bravo</div>
-    <div class="fecha"><i class="fas fa-calendar-check"></i> Sábado, 22 de Noviembre de 2025</div>
-  </div>
-
-  <div class="content">
-    <p style="text-align:center;font-size:18px;margin-bottom:20px;">
-      "Dejad a los niños venir a mí, porque de los que son como ellos es el reino de los cielos."
-      <br><strong>- Mateo 19:14</strong>
-    </p>
-
-    <div class="eventos">
-      <div class="evento">
-        <h3><i class="fas fa-church"></i> Ceremonia Religiosa</h3>
-        <p><strong>Hora:</strong> 10:00 AM</p>
-        <p><strong>Lugar:</strong> Parroquia Santa María Madre de Dios</p>
-        <p><strong>Dirección:</strong> Carril de la Rosa Manzana y 50 Norte, Diez de Mayo 72270</p>
-        <p><strong>Código:</strong> Formal</p>
-      </div>
-
-      <div class="evento">
-        <h3><i class="fas fa-cocktail"></i> Recepción</h3>
-        <p><strong>Hora:</strong> 3:00 PM</p>
-        <p><strong>Lugar:</strong> Salón de Eventos "H.LUNA"</p>
-        <p><strong>Dirección:</strong> Calle 6 Sur No. 8917, Col. 16 de Septiembre Sur</p>
-        <p><strong>Código:</strong> Semi Formal</p>
-      </div>
+  <div class="invitacion-card comunion" id="comunion">
+    <div class="header">
+      <div class="cruz">†</div>
+      <h1 class="titulo">INVITACIÓN ESPECIAL</h1>
+      <h2 class="subtitulo">Primera Comunión</h2>
+      <div class="nombre">Daniela Emireth Mendoza Bravo</div>
+      <div class="fecha"><span><i class="fas fa-calendar-check"></i></span><span>Sábado, 22 de Noviembre de 2025</span></div>
     </div>
 
-    <div class="mapa-container">
-      <div id="mapa"></div>
-      <div class="leyenda-mapa">
-        <div><div class="color-marcador marcador-iglesia"></div> Iglesia</div>
-        <div><div class="color-marcador marcador-salon"></div> Salón</div>
-      </div>
-    </div>
-
-    <!-- Nueva sección de confirmación elegante -->
-    <div class="confirmacion-elegante">
-      <h3>Esperamos Contar con Tu Presencia</h3>
-      <p>
-        <span class="emoji-decoracion">✨</span>
-        Será un honor compartir este momento tan especial contigo
-        <span class="emoji-decoracion">✨</span>
+    <div class="content">
+      <p style="text-align:center;font-size:18px;margin-bottom:20px;">
+        "Jesús dijo: Dejen que los niños vengan a mí..."<br><strong>- Mateo 19:14</strong>
       </p>
-      <p style="margin-top: 15px; font-weight: 500;">
-        <i class="fas fa-heart" style="color: #d4af37; margin-right: 8px;"></i>
-        Tu compañía será el mejor regalo para Daniela en este día de bendición
-        <i class="fas fa-heart" style="color: #d4af37; margin-left: 8px;"></i>
-      </p>
-    </div>
-  </div>
 
-  <div class="footer">Invitación Digital - Primera Comunión de Daniela</div>
+      <div class="eventos">
+        <div class="evento">
+          <h3><i class="fas fa-church"></i> Ceremonia Religiosa</h3>
+          <p><strong>Hora:</strong> 10:00 AM</p>
+          <p><strong>Lugar:</strong> Parroquia Santa María Madre de Dios</p>
+          <p><strong>Dirección:</strong> Carril de la Rosa Manzana y 50 Norte, Diez de Mayo 72270</p>
+          <p><strong>Código:</strong> Formal</p>
+        </div>
+        <div class="evento">
+          <h3><i class="fas fa-cocktail"></i> Recepción</h3>
+          <p><strong>Hora:</strong> 3:00 PM</p>
+          <p><strong>Lugar:</strong> Salón de Eventos "H.LUNA"</p>
+          <p><strong>Dirección:</strong> Calle 6 Sur No. 8917, Col. 16 de Septiembre Sur</p>
+          <p><strong>Código:</strong> Elegante</p>
+        </div>
+      </div>
+
+      <div class="mapa-container">
+        <div id="mapa"></div>
+        <div class="leyenda-mapa">
+          <div><div class="color-marcador marcador-iglesia"></div> Iglesia</div>
+          <div><div class="color-marcador marcador-salon"></div> Salón</div>
+        </div>
+      </div>
+
+      <div class="confirmacion">
+        <h3>Esperamos contar con tu presencia</h3>
+        <div class="mensaje-asistencia">
+          "Será un honor compartir este día tan especial contigo"
+        </div>
+      </div>
+
+      <div class="mensaje-final">
+        <p>Tu presencia será nuestro mejor regalo <i class="fas fa-heart" style="color:#d4af37;"></i></p>
+        <p>Con la bendición de Dios y nuestros padres</p>
+      </div>
+    </div>
+    <div class="footer">Invitación Digital - Primera Comunión de Daniela</div>
+  </div>
 </div>
 
 <audio id="musicaComunion" loop preload="auto">
-  <source src="audio/comunion.mp3" type="audio/mp3">
+  <source src="https://assets.mixkit.co/music/preview/mixkit-a-very-happy-christmas-397.mp3" type="audio/mp3">
+  Tu navegador no soporta el elemento de audio.
 </audio>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+const comunionCard = document.getElementById('comunion');
 const musicControl = document.getElementById('musicControl');
-const musica = document.getElementById('musicaComunion');
+const musicaComunion = document.getElementById('musicaComunion');
+let musicaActual = musicaComunion;
 let musicaActiva = false;
+let mapaCargado = false;
 let usuarioInteractuo = false;
 
-function mostrarMensajeInteraccion() {
-  const mensaje = document.createElement('div');
-  mensaje.className = 'interaction-message';
-  mensaje.innerHTML = '<i class="fas fa-volume-up"></i> Toca para activar la música';
-  document.body.appendChild(mensaje);
-  setTimeout(() => mensaje.remove(), 3000);
-}
-
+// Reproducir música después de la interacción del usuario
 function iniciarMusica() {
-  if (!usuarioInteractuo) usuarioInteractuo = true;
-  if (!musicaActiva) {
-    musica.play().then(()=>{
-      musicaActiva = true;
+  if (!usuarioInteractuo) {
+    usuarioInteractuo = true;
+    musicaActiva = true;
+    musicaActual.play().then(() => {
+      console.log("Música iniciada correctamente");
       musicControl.classList.add('music-on');
-    }).catch(()=>{});
+    }).catch(error => {
+      console.log("Error al reproducir música:", error);
+      musicaActiva = false;
+    });
   }
 }
 
-musicControl.addEventListener('click', ()=>{
+// Control música
+musicControl.addEventListener('click', () => {
+  // Asegurar que el usuario ha interactuado
+  if (!usuarioInteractuo) {
+    usuarioInteractuo = true;
+  }
+  
   musicaActiva = !musicaActiva;
   const icon = musicControl.querySelector('i');
-  if(musicaActiva){ 
-    musica.play(); 
-    musicControl.classList.add('music-on'); 
-    icon.className='fas fa-music'; 
-  }
-  else{ 
-    musica.pause(); 
-    musicControl.classList.remove('music-on'); 
-    icon.className='fas fa-volume-mute'; 
+  
+  if (musicaActiva) {
+    musicaActual.play().catch(error => {
+      console.log("Error al reproducir música:", error);
+      musicaActiva = false;
+    });
+    musicControl.classList.add('music-on');
+    icon.className = 'fas fa-music';
+  } else {
+    musicaActual.pause();
+    musicControl.classList.remove('music-on');
+    icon.className = 'fas fa-volume-mute';
   }
 });
 
-document.addEventListener('click', iniciarMusica, {once:true});
-document.addEventListener('touchstart', iniciarMusica, {once:true});
-window.addEventListener('load', ()=>setTimeout(mostrarMensajeInteraccion,1000));
+function initMap() {
+  const iglesia = [19.055543586030872, -98.16731613383149];
+  const salon = [18.99436672013305, -98.2184132477168];
+  
+  // Asegura que el mapa se inicialice correctamente
+  if (document.getElementById('mapa')) {
+    const map = L.map('mapa').setView([(iglesia[0] + salon[0]) / 2, (iglesia[1] + salon[1]) / 2], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '© OpenStreetMap'}).addTo(map);
 
-function initMap(){
-  const iglesia=[19.055543586030872,-98.16731613383149];
-  const salon=[18.99436672013305,-98.2184132477168];
-  const map=L.map('mapa').setView([(iglesia[0]+salon[0])/2,(iglesia[1]+salon[1])/2],12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap'}).addTo(map);
-  
-  // Iconos personalizados para la iglesia
-  const iconIglesia = L.divIcon({
-    className: 'custom-marker-icon marker-iglesia',
-    html: `
-      <div class="marker-with-circle">
-        <div class="marker-circle circle-iglesia"></div>
-        <i class="fas fa-church fa-2x" style="color:#e74c3c;"></i>
-      </div>
-    `,
-    iconSize: [40, 40],
-    iconAnchor: [20, 20],
-    popupAnchor: [0, -20]
-  });
-  
-  // Iconos personalizados para el salón
-  const iconSalon = L.divIcon({
-    className: 'custom-marker-icon marker-salon',
-    html: `
-      <div class="marker-with-circle">
-        <div class="marker-circle circle-salon"></div>
-        <i class="fas fa-glass-cheers fa-2x" style="color:#3498db;"></i>
-      </div>
-    `,
-    iconSize: [40, 40],
-    iconAnchor: [20, 20],
-    popupAnchor: [0, -20]
-  });
-  
-  // Marcador de la iglesia
-  const marcadorIglesia = L.marker(iglesia, {icon: iconIglesia}).addTo(map)
-    .bindPopup(`
-      <div style="text-align:center;padding:10px;min-width:200px;">
-        <h3 style="margin:0 0 10px 0;color:#e74c3c;">
-          <i class="fas fa-church"></i> Ceremonia Religiosa
-        </h3>
-        <p style="margin:5px 0;"><strong>⏰ Hora:</strong> 10:00 AM</p>
-        <p style="margin:5px 0;"><strong>📍 Lugar:</strong> Parroquia Santa María Madre de Dios</p>
-        <p style="margin:5px 0;font-size:12px;color:#666;">
-          Carril de la Rosa Manzana y 50 Norte, Diez de Mayo
-        </p>
-      </div>
-    `)
-    .openPopup();
-  
-  // Marcador del salón
-  const marcadorSalon = L.marker(salon, {icon: iconSalon}).addTo(map)
-    .bindPopup(`
-      <div style="text-align:center;padding:10px;min-width:200px;">
-        <h3 style="margin:0 0 10px 0;color:#3498db;">
-          <i class="fas fa-glass-cheers"></i> Recepción
-        </h3>
-        <p style="margin:5px 0;"><strong>⏰ Hora:</strong> 3:00 PM</p>
-        <p style="margin:5px 0;"><strong>📍 Lugar:</strong> Salón de Eventos "H.LUNA"</p>
-        <p style="margin:5px 0;font-size:12px;color:#666;">
-          Calle 6 Sur No. 8917, Col. 16 de Septiembre Sur
-        </p>
-      </div>
-    `);
-  
-  // Ajustar el mapa para mostrar ambos marcadores
-  const group = new L.featureGroup([marcadorIglesia, marcadorSalon]);
-  map.fitBounds(group.getBounds().pad(0.1));
-  
-  console.log('Mapa inicializado correctamente');
-  console.log('Iglesia:', iglesia);
-  console.log('Salón:', salon);
+    // Marcador de Iglesia (rojo)
+    const iconIglesia = L.divIcon({
+      className: 'custom-div-icon', 
+      html: '<i class="fas fa-church fa-2x" style="color:#e74c3c;"></i>', 
+      iconSize: [30, 42], 
+      iconAnchor: [15, 42]
+    });
+    const m1 = L.marker(iglesia, {icon: iconIglesia}).addTo(map).bindPopup('⛪ Ceremonia Religiosa');
+    
+    // Marcador de Salón (azul)
+    const iconSalon = L.divIcon({
+      className: 'custom-div-icon', 
+      html: '<i class="fas fa-cocktail fa-2x" style="color:#3498db;"></i>', 
+      iconSize: [30, 42], 
+      iconAnchor: [15, 42]
+    });
+    const m2 = L.marker(salon, {icon: iconSalon}).addTo(map).bindPopup('🎉 Recepción');
+    
+    map.fitBounds(L.featureGroup([m1, m2]).getBounds().pad(0.2));
+  }
 }
 
-// Inicializar el mapa cuando la página cargue
-window.addEventListener('load', initMap);
+// Eventos para detectar interacción del usuario
+document.addEventListener('click', iniciarMusica, { once: true });
+document.addEventListener('touchstart', iniciarMusica, { once: true });
+document.addEventListener('keydown', iniciarMusica, { once: true });
+
+// Cargar el mapa al cargar la página
+window.addEventListener('load', () => {
+  if (!mapaCargado) {
+    initMap();
+    mapaCargado = true;
+  }
+});
 </script>
 </body>
 </html>
