@@ -23,7 +23,6 @@ body{
   padding:20px;
 }
 
-/* Contenedor principal */
 .container{
   max-width:900px;
   width:100%;
@@ -34,7 +33,6 @@ body{
   position:relative;
 }
 
-/* Encabezado */
 .header{
   background:linear-gradient(135deg,#a58564 0%,#d4af37 100%);
   color:white;
@@ -50,7 +48,6 @@ body{
 .nombre{font-size:40px;font-weight:600;margin:15px 0;text-shadow:1px 1px 5px rgba(0,0,0,0.4);}
 .fecha{font-size:22px;margin-top:15px;display:flex;align-items:center;justify-content:center;gap:10px;}
 
-/* Contenido */
 .content{padding:40px;position:relative;z-index:1;}
 .eventos{display:flex;flex-wrap:wrap;gap:25px;margin:30px 0;}
 .evento{
@@ -66,7 +63,6 @@ body{
 .evento:hover{transform:translateY(-5px);box-shadow:0 6px 18px rgba(0,0,0,0.15);}
 .evento h3{color:#8b6b4c;margin-bottom:15px;font-family:'Cinzel',serif;font-size:1.4rem;}
 
-/* Mapa */
 .mapa-container{margin:30px 0;border-radius:15px;overflow:hidden;box-shadow:0 5px 15px rgba(0,0,0,0.1);}
 #mapa{height:400px;width:100%;}
 .leyenda-mapa{background:#f8f6f0;padding:15px;display:flex;justify-content:center;gap:30px;flex-wrap:wrap;font-weight:500;}
@@ -74,17 +70,20 @@ body{
 .marcador-iglesia{background-color:#e74c3c;}
 .marcador-salon{background-color:#3498db;}
 
-/* Confirmación */
-.confirmacion{text-align:center;margin:30px 0;padding:30px;background:#f8f6f0;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-.btn-confirmar{
-  background:#d4af37;color:white;border:none;padding:15px 35px;font-size:18px;border-radius:50px;
-  cursor:pointer;transition:all .3s;font-weight:bold;margin-top:15px;box-shadow:0 4px 10px rgba(212,175,55,0.4);
+.mensaje-final{
+  text-align:center;
+  margin:40px 0 20px;
+  padding:25px;
+  background:#f8f6f0;
+  border-radius:12px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+  font-size:18px;
+  color:#6b4e33;
+  font-style:italic;
 }
-.btn-confirmar:hover{background:#b8941f;transform:translateY(-3px);box-shadow:0 6px 15px rgba(212,175,55,0.6);}
-.mensaje-final{text-align:center;font-style:italic;margin:20px 0;color:#666;font-size:18px;}
+
 .footer{text-align:center;padding:20px;color:#888;font-size:14px;border-top:1px solid #eee;}
 
-/* Control de música */
 .music-control{
   position:fixed;top:20px;right:20px;z-index:1000;
   background:linear-gradient(135deg,#b38b59 0%,#d4af37 100%);
@@ -97,7 +96,7 @@ body{
 .music-on{animation:rotar 3s linear infinite;}
 @keyframes rotar{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
 
-/* Mensaje */
+/* Mensaje flotante */
 .interaction-message {
   position: fixed;
   top: 20px;
@@ -119,7 +118,6 @@ body{
   100% { opacity: 0; top: 30px; }
 }
 
-/* Responsive */
 @media(max-width:768px){
   .titulo{font-size:24px;}
   .subtitulo{font-size:36px;}
@@ -131,7 +129,9 @@ body{
 </head>
 <body>
 
-<div class="music-control" id="musicControl" title="Reproducir / Pausar música"><i class="fas fa-music"></i></div>
+<div class="music-control" id="musicControl" title="Reproducir / Pausar música">
+  <i class="fas fa-music"></i>
+</div>
 
 <div class="container">
   <div class="header">
@@ -144,7 +144,7 @@ body{
 
   <div class="content">
     <p style="text-align:center;font-size:18px;margin-bottom:20px;">
-      Jesús dijo: “Dejad a los niños venir a mí, y no se lo impidáis; porque de los tales es el reino de los cielos”
+      “Dejad a los niños venir a mí, porque de los que son como ellos es el reino de los cielos.”
       <br><strong>- Mateo 19:14</strong>
     </p>
 
@@ -174,13 +174,8 @@ body{
       </div>
     </div>
 
-    <div class="confirmacion">
-      <p>Tu presencia será nuestro mejor regalo ❤️</p>
-      <button class="btn-confirmar" onclick="confirmarAsistencia()">Confirmar Asistencia</button>
-    </div>
-
     <div class="mensaje-final">
-      <p>Con la bendición de Dios y nuestros padres</p>
+      💖 Nos encantará contar con tu presencia para compartir este día tan especial 💖
     </div>
   </div>
 
@@ -198,7 +193,6 @@ const musica = document.getElementById('musicaComunion');
 let musicaActiva = false;
 let usuarioInteractuo = false;
 
-// Mostrar mensaje
 function mostrarMensajeInteraccion() {
   const mensaje = document.createElement('div');
   mensaje.className = 'interaction-message';
@@ -216,12 +210,14 @@ function iniciarMusica() {
     }).catch(()=>{});
   }
 }
+
 musicControl.addEventListener('click', ()=>{
   musicaActiva = !musicaActiva;
   const icon = musicControl.querySelector('i');
   if(musicaActiva){ musica.play(); musicControl.classList.add('music-on'); icon.className='fas fa-music'; }
   else{ musica.pause(); musicControl.classList.remove('music-on'); icon.className='fas fa-volume-mute'; }
 });
+
 document.addEventListener('click', iniciarMusica, {once:true});
 document.addEventListener('touchstart', iniciarMusica, {once:true});
 window.addEventListener('load', ()=>setTimeout(mostrarMensajeInteraccion,1000));
@@ -238,12 +234,6 @@ function initMap(){
   map.fitBounds(L.featureGroup([m1,m2]).getBounds().pad(0.2));
 }
 initMap();
-
-function confirmarAsistencia(){
-  const tel="2227944150";
-  const msg="¡Hola! Confirmo mi asistencia a la Primera Comunión de Daniela. Gracias por la invitación.";
-  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`,'_blank');
-}
 </script>
 </body>
 </html>
